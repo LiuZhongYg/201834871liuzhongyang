@@ -1,12 +1,12 @@
 # Data Mining Homework 
 工程简介：
   一共包含六个文件：
-  vsm.py        用来构建向量空间模型
-  KNN.py        用来划分训练集、测试集，计算分类的正确率
-  data          原始数据
-  data_split    分词后的文本
-  vsm           生成的文本向量
-  vocabulary    字典
+  #vsm.py        用来构建向量空间模型
+  #KNN.py        用来划分训练集、测试集，计算分类的正确率
+  #data          原始数据
+  #data_split    分词后的文本
+  #vsm           生成的文本向量
+  #vocabulary    字典
 #
 任务1：构建vsm
   首先对文本进行分词、去停用词等操作，计算每个单词的TF并使用Sub-linear TF scaling进行标准化，
