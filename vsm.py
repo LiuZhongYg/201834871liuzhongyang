@@ -5,7 +5,7 @@ from textblob import Word
 from nltk.corpus import stopwords
 
 def data_process1(path,path2):
-    "分词，去停用词,然后存起来"
+    "分词，统计tf,初步建立词典，然后存起来"
     vocabulary=[]
     list=[]
     files=os.listdir(path)
@@ -99,7 +99,7 @@ def data_process1(path,path2):
 ##
 
 def data_process2(data,w_min):
-    "数据来自data_stem_if()"
+    "数据来自data_stem_if()，计算idf,求得权重，过滤词典"
     table={}
     data1=data
     vocabulary=[]#修改
@@ -129,24 +129,24 @@ def data_process2(data,w_min):
             index+=1
     print(index)
     return vocabulary,data
-def help(path):
-    list=[]
-    files=os.listdir(path)
-    for file in files:
-        file_list=os.listdir(path+ "/" +file)
-        for file_txt in file_list:
-            data=open(path + "/" + file + "/" + file_txt,'r',errors='ignore')
-            data_con=data.readlines()
-            for i in data_con:
-                ch=i.split(":")[0]
-                if ch not in list:
-                    list.append(ch)
-    index=0
-    with open("./vocabulary.txt",'w+') as f:
-        for i in list:
-            f.write(str(i)+"\n")
-            index+=1
-    print(index)
+##def help(path):
+##    list=[]
+##    files=os.listdir(path)
+##    for file in files:
+##        file_list=os.listdir(path+ "/" +file)
+##        for file_txt in file_list:
+##            data=open(path + "/" + file + "/" + file_txt,'r',errors='ignore')
+##            data_con=data.readlines()
+##            for i in data_con:
+##                ch=i.split(":")[0]
+##                if ch not in list:
+##                    list.append(ch)
+##    index=0
+##    with open("./vocabulary.txt",'w+') as f:
+##        for i in list:
+##            f.write(str(i)+"\n")
+##            index+=1
+##    print(index)
 def create_vsm(path,data,vocabulary):
     "建立向量空间模型"
     count=0
@@ -161,11 +161,6 @@ def create_vsm(path,data,vocabulary):
                     else:
                         f.write(word+":"+"0"+"\n")
             count+=1
-def count():
-    with open("./vocabulary.txt",'r') as f:
-        data=f.readlines()
-        print(len(data))
-    
 
 if __name__ == "__main__":
 
