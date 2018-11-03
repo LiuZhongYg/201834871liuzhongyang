@@ -4,10 +4,12 @@ from textblob import TextBlob
 from textblob import Word
 from nltk.corpus import stopwords
 
-def data_process1(path,path2):
+def data_process1(path):
     "分词，统计tf,初步建立词典，然后存起来"
     vocabulary=[]
     list=[]
+    log=0
+    flag=0
     files=os.listdir(path)
     for file in files:
         file_list=os.listdir(path+ "/" +file)
@@ -22,16 +24,26 @@ def data_process1(path,path2):
             filtered=[w for w in data_con if(w not in stopwords.words('english'))]#去停用词
             dic={}
             for i in filtered:
+                
                 w=Word(i)
                 w.lemmatize()
                 w.lemmatize('v')
+                for j in w:
+                    if((j<'a'or j>'z')and j!='-'):
+                        flag=1
+                        break
+                if flag==1:
+                    flag=0
+                    continue
                 if dic.get(w) is not None:
                     dic[w]+=1
                 else:
                     dic[w]=1
 ##                if w not in vocabulary:
 ##                    vocabulary.append(w)  #初步建立词汇表
-               
+                log+=1
+                if log%1000==0:
+                    print(log)
             for k,v in dic.items():
                     dic[k]=(1+math.log(v))#标准化tf
             list.append(dic)
@@ -129,24 +141,7 @@ def data_process2(data,w_min):
             index+=1
     print(index)
     return vocabulary,data
-##def help(path):
-##    list=[]
-##    files=os.listdir(path)
-##    for file in files:
-##        file_list=os.listdir(path+ "/" +file)
-##        for file_txt in file_list:
-##            data=open(path + "/" + file + "/" + file_txt,'r',errors='ignore')
-##            data_con=data.readlines()
-##            for i in data_con:
-##                ch=i.split(":")[0]
-##                if ch not in list:
-##                    list.append(ch)
-##    index=0
-##    with open("./vocabulary.txt",'w+') as f:
-##        for i in list:
-##            f.write(str(i)+"\n")
-##            index+=1
-##    print(index)
+
 def create_vsm(path,data,vocabulary):
     "建立向量空间模型"
     count=0
@@ -165,7 +160,7 @@ def create_vsm(path,data,vocabulary):
 if __name__ == "__main__":
 
     #help("./data_process/20news-18828")
-    list1=data_process1("./data/20news-18828","./data_process/20news-18828")
+    list1=data_process1("./data/20news-18828")
     list2,list3=data_process2(list1,20)
     create_vsm("./vsm/20news-18828",list3,list2)
     print("ok")
