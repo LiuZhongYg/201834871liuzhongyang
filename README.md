@@ -5,7 +5,7 @@
   KNN.py        用来划分训练集、测试集，计算分类的正确率
   data          原始数据
   vsm           生成的文本向量
-  vocabularies    字典
+  vocabularies    词典
 #
 任务1：构建vsm
   首先对文本进行分词、去停用词等操作，计算每个单词的TF并使用Sub-linear TF scaling进行标准化，
