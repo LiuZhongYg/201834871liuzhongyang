@@ -95,6 +95,6 @@ def KNN(dic_train,dic_test,k):
 if __name__ == "__main__":
     path="./vsm/20news-18828"
     divide(0.2,path)
-    KNN(dic_train,dic_test,10)
+    KNN(dic_train,dic_test,9)
     
     
