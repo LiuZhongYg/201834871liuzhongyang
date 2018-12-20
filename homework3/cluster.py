@@ -25,7 +25,7 @@ def data_process():
     #print(DataLabels)
 def K_means():
     global Cluster
-    Cluster =KMeans(n_clusters=110,random_state=10,).fit_predict(Data)
+    Cluster =KMeans(n_clusters=110).fit_predict(Data)
     print("K_means:")
     NMI()
 def Affinity():
@@ -71,10 +71,10 @@ def NMI():
 if __name__=='__main__':
     data_process()
     K_means()
-    Affinity()
-    Mean_shift()
-    Spectral()
-    WardHierarchicalCluster()
-    DBSCANClustering()
+    #Affinity()
+    #Mean_shift()
+   # Spectral()
+    #WardHierarchicalCluster()
+    #DBSCANClustering()
     #Gaussian1()
-    Agglomerative()
+   # Agglomerative()
